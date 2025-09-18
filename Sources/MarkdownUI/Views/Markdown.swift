@@ -214,7 +214,9 @@ public struct Markdown: View {
       BlockSequence(self.blocks)
         .foregroundColor(attributes.foregroundColor)
         .background(attributes.backgroundColor)
-        .modifier(ScaledFontSizeModifier(attributes.fontProperties?.size))
+        // Use the already-scaled size so theme-level relative sizes
+        // (e.g., FontSize(.em(_)) in Theme().text) cascade globally.
+        .modifier(ScaledFontSizeModifier(attributes.fontProperties?.scaledSize))
     }
     .textStyle(self.text)
     .environment(\.baseURL, self.baseURL)
